@@ -1,4 +1,13 @@
 from pygame import *
+b = (200, 255, 255)
+w_width = 600
+w_height = 300
+w = display.set_mode((w_width, w_height))
+w.fill(b)
+g = True
+f = False
+clock = time.Clock()
+FPS = 60
 class GS(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed, wight, height):
         super().__init__()
