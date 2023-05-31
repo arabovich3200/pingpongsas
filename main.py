@@ -1,4 +1,5 @@
 from pygame import *
+font.init()
 b = (200, 255, 255)
 w_width = 600
 w_height = 300
@@ -33,8 +34,11 @@ class P(GS):
 r1 = P('rocket1.png', 30, 200, 4, 50, 150)
 r2 = P('rocket2.png', 520, 200, 4, 50, 150)
 ba = GS('ball.png', 200, 200, 4, 50, 50)
-speed_x = 3
-speed_y = 3
+s_x = 3
+s_y = 3
+font = font.Font(None, 35)
+l1 = font.render('Player 1 lost the game!', True, (180, 0, 0))
+l2 = font.render('Player 2 lost the game!', True, (180, 0, 0))
 while g:
     for e in event.get():
         if e.type == QUIT:
@@ -43,8 +47,19 @@ while g:
         w.fill(b)
         r1.up_r()
         r2.up_l()
-        ba.rect.x += speed_x
-        ba.rect.y += speed_y
+        ba.rect.x += s_x
+        ba.rect.y += s_y
+        if sprite.collide_rect(r1, ba) or sprite.collide_rect(r2, ba):
+            s_x *= -1
+            s_y *= 1  
+        if ba.rect.y > w_height-50 or ba.rect.y < 0:
+            s_y *= -1
+        if ba.rect.x < 0:
+            f = True
+            w.blit(l1, (200, 200))
+        if ba.rect.x > w_width:
+            f = True
+            w.blit(l2, (200, 200))
         r1.res()
         r2.res()
         ba.res()
